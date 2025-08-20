@@ -40,6 +40,7 @@ jobs:
           coverage: none
 
       - name: Install Composer dependencies
+        working-directory: ./src
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Copy .env
@@ -54,10 +55,13 @@ jobs:
           done
 
       - name: Generate application key
+        working-directory: ./src
         run: php artisan key:generate
 
       - name: Run migrations
+        working-directory: ./src
         run: php artisan migrate --force
 
       - name: Run tests
+        working-directory: ./src
         run: php artisan test
